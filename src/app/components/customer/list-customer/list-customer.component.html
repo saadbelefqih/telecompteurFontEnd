@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <ul class="navbar navbar-nav ml-auto">
+        <li class="nav-item">
+            <button class="btn btn-outline-info ml-1"><i class="fa fa-table"></i></button>
+        </li>
+        <li class="nav-item">
+            <button class="btn btn-outline-info ml-1"><i class="fa fa-cubes"></i></button>
+        </li>
+
+    </ul>
+</nav>
+
+	<div class="container" >
+		<ng-container *ngIf="(customersData$ | async) as result" [ngSwitch]="result.dataState">
+			<ng-container *ngSwitchCase="DataStateEnum.LOADING">Loading ...</ng-container>
+			<ng-container *ngSwitchCase="DataStateEnum.ERROR">
+				<div class="col-12 text-center">
+					<div class="alert alert-danger">
+						{{result.errorMessage}}
+					</div>
+				</div>
+			</ng-container>
+
+			<ng-container *ngSwitchCase="DataStateEnum.LOADED">
+				<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4">
+					<div *ngFor="let c of result.data">
+					<div class="col">
+						<div class="card radius-15">
+							<div class="card-body text-center">
+								<div class="p-4 border radius-15">
+									<img src="{{c.imageUrl}}" width="110" height="110" class="rounded-circle shadow" alt="">
+									<h6 class="mb-0 mt-5">{{c.fname}} {{c.lname}}</h6>
+									<p class="mb-3">{{c.jobTitle}}</p>
+									<div class="list-inline contacts-social mt-3 mb-3"> <a href="{{'https://www.facebook.com/'+ c?.account_fb}}" class="list-inline-item bg-facebook text-white border-0"><i class="fa fa-facebook"></i></a>
+										<a href="{{'https://twitter.com/'+ c?.account_twitter}}" class="list-inline-item bg-twitter text-white border-0"><i class="fa fa-twitter"></i></a>
+										<a href="{{'https://www.instagram.com/'+ c?.account_insta}}" class="list-inline-item bg-instagram text-white border-0"><i class="fa fa-instagram"></i></a>
+									</div>
+									<div class="d-grid"> <a href="#" class="btn btn-outline-primary radius-15">Consulter</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+			</ng-container>
+		</ng-container>
+	</div>
