@@ -4,10 +4,13 @@ import { CommonModule } from '@angular/common';
 import { ListCustomerComponent } from './components/customer/list-customer/list-customer.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HelpComponent } from './components/help/help.component';
+import { DetailCustomerComponent } from './components/customer/detail-customer/detail-customer.component';
 
 const routes :Routes=[
-  {path:'',component:DashboardComponent},
+  {path: "",redirectTo: '/dashboard',pathMatch: 'full'},
+  {path:"dashboard",component:DashboardComponent},
   {path:'customer',component:ListCustomerComponent},
+  {path:"customer/details/:id",component:DetailCustomerComponent},
   {path:'help',component:HelpComponent}
 ];
 

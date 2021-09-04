@@ -13,6 +13,9 @@ export class CustomerService {
   
   public getAllCustomers():Observable<Customer[]>{
 	return this.http.get<Customer[]>(this.url+"/all");}
+
+  public getOneCustomer(id:Number):Observable<Customer>{
+    return this.http.get<Customer>(this.url+"/find/"+id);}
 	
   public addCustomer(customer:Customer):Observable<Customer>{
 	return this.http.post<Customer>(this.url+"/add",customer);}

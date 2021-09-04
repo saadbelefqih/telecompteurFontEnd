@@ -8,6 +8,7 @@ import { ListCustomerComponent } from './components/customer/list-customer/list-
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HelpComponent } from './components/help/help.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DetailCustomerComponent } from './components/customer/detail-customer/detail-customer.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
     NavBarComponent,
     ListCustomerComponent,
     DashboardComponent,
-    HelpComponent
+    HelpComponent,
+    DetailCustomerComponent
   ],
   imports: [
     BrowserModule,

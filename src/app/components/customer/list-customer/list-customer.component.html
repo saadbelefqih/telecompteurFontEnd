@@ -1,18 +1,31 @@
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
     <ul class="navbar navbar-nav ml-auto">
-        <li class="nav-item">
-            <button class="btn btn-outline-info ml-1"><i class="fa fa-table"></i></button>
+		<li class="nav-item">
+            <button class="btn btn-outline-info ml-1" (click)="getCardForm()" ><i class="fa fa-cubes"></i></button>
         </li>
         <li class="nav-item">
-            <button class="btn btn-outline-info ml-1"><i class="fa fa-cubes"></i></button>
+            <button class="btn btn-outline-info ml-1" (click)="getTableForm()"><i class="fa fa-table" ></i></button>
         </li>
-
     </ul>
 </nav>
 
 	<div class="container" >
+		          <!-- Breadcrumb -->
+				  <nav aria-label="breadcrumb" class="main-breadcrumb">
+					<ol class="breadcrumb">
+					  <li class="breadcrumb-item"><a routerLink="/" >Home</a></li>
+					  <li class="breadcrumb-item"><a routerLink="/customer">Clients</a></li>
+					</ol>
+				  </nav>
+				  <!-- /Breadcrumb -->
 		<ng-container *ngIf="(customersData$ | async) as result" [ngSwitch]="result.dataState">
-			<ng-container *ngSwitchCase="DataStateEnum.LOADING">Loading ...</ng-container>
+			<ng-container *ngSwitchCase="DataStateEnum.LOADING">
+				<div class="text-center">
+					<div class="spinner-grow text-primary" role="status">
+					  <span class="sr-only">Loading...</span>
+					</div>
+				  </div>
+			</ng-container>
 			<ng-container *ngSwitchCase="DataStateEnum.ERROR">
 				<div class="col-12 text-center">
 					<div class="alert alert-danger">
@@ -20,22 +33,23 @@
 					</div>
 				</div>
 			</ng-container>
-
 			<ng-container *ngSwitchCase="DataStateEnum.LOADED">
+				<!--Card Customer-->
+				<ng-container *ngIf="isCardForm">
 				<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4">
 					<div *ngFor="let c of result.data">
 					<div class="col">
 						<div class="card radius-15">
 							<div class="card-body text-center">
 								<div class="p-4 border radius-15">
-									<img src="{{c.imageUrl}}" width="110" height="110" class="rounded-circle shadow" alt="">
+									<img src="{{c?.imageUrl}}" width="110" height="110" class="rounded-circle shadow" alt="">
 									<h6 class="mb-0 mt-5">{{c.fname}} {{c.lname}}</h6>
 									<p class="mb-3">{{c.jobTitle}}</p>
 									<div class="list-inline contacts-social mt-3 mb-3"> <a href="{{'https://www.facebook.com/'+ c?.account_fb}}" class="list-inline-item bg-facebook text-white border-0"><i class="fa fa-facebook"></i></a>
 										<a href="{{'https://twitter.com/'+ c?.account_twitter}}" class="list-inline-item bg-twitter text-white border-0"><i class="fa fa-twitter"></i></a>
 										<a href="{{'https://www.instagram.com/'+ c?.account_insta}}" class="list-inline-item bg-instagram text-white border-0"><i class="fa fa-instagram"></i></a>
 									</div>
-									<div class="d-grid"> <a href="#" class="btn btn-outline-primary radius-15">Consulter</a>
+									<div class="d-grid"> <a (click)="onRedirectCustomDetails(c.idCustomer)"  class="btn btn-outline-primary radius-15">Consulter</a>
 									</div>
 								</div>
 							</div>
@@ -43,6 +57,81 @@
 					</div>
 				</div>
 				</div>
+			</ng-container>
+			<!--Fin Card Customer-->
+			<!--Table Customer-->
+			<ng-container *ngIf="!isCardForm">
+
+<div class="event-schedule-area-two bg-color pad100">
+    <div class="container">
+
+        <!-- row end-->
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade active show" id="home" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+
+                                        <th class="text-center" scope="col">Photo</th>
+                                        <th scope="col">Client</th>
+                                        <th scope="col">Réseaux sociaux</th>
+                                        <th class="text-center" scope="col">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+									<ng-container *ngFor="let c of result.data; let i = index">
+                                    <tr class="inner-box">
+                                        <td>
+                                            <div class="event-img">
+                                                <img src="{{c?.imageUrl}}" alt="" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="event-wrap">
+                                                <h3><a >{{c.fname}} {{c.lname}}</a></h3>
+                                                <ul class="fa-ul">
+													<li><span class="fa-li"><i class="fa fa-usd"></i></span>{{c?.jobTitle}}</li>
+													<li><span class="fa-li"><i class="fa fa-id-card"></i></span>{{c?.cine}} {{c?.address}}</li>
+													<li><span class="fa-li"><i class="fa fa-phone"></i></span>{{c?.phone}}</li>
+													<li><span class="fa-li"><i class="fa fa-at"></i></span>{{c?.email}}</li>
+												  </ul>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="r-no">
+												<div class="list-inline contacts-social mt-3 mb-3"> <a href="{{'https://www.facebook.com/'+ c?.account_fb}}" class="list-inline-item bg-facebook text-white border-0"><i class="fa fa-facebook"></i></a>
+													<a href="{{'https://twitter.com/'+ c?.account_twitter}}" class="list-inline-item bg-twitter text-white border-0"><i class="fa fa-twitter"></i></a>
+													<a href="{{'https://www.instagram.com/'+ c?.account_insta}}" class="list-inline-item bg-instagram text-white border-0"><i class="fa fa-instagram"></i></a>
+												</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="primary-btn">
+                                                <a class="btn btn-primary" (click)="onRedirectCustomDetails(c.idCustomer)" >Consulter</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+								</ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- /col end-->
+        </div>
+        <!-- /row end-->
+    </div>
+</div>
+
+			</ng-container>
+			<!--Fin Table Customer-->
 			</ng-container>
 		</ng-container>
 	</div>
