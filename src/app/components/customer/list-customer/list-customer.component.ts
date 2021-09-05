@@ -48,40 +48,47 @@ export class ListCustomerComponent implements OnInit {
   }
 
   getCustomersByCine(){
-    console.log("saaaad");
-    console.log(this.searchValue);
+    if(this.searchValue.length>0){
     this.customersData$=this.customerService.getCustomersByCine(this.searchValue)
       .pipe(
         map((data)=>({dataState:DataStateEnum.LOADED,data:data})),
         startWith({dataState:DataStateEnum.LOADING}),
         catchError(err=>of({dataState:DataStateEnum.ERROR,errorMessage:err.message}))
       );
+    }
   }
 
   getCustomersByFname(){
+    if(this.searchValue.length>0){
     this.customersData$=this.customerService.getCustomersByFname(this.searchValue)
     .pipe(
       map((data)=>({dataState:DataStateEnum.LOADED,data:data})),
       startWith({dataState:DataStateEnum.LOADING}),
       catchError(err=>of({dataState:DataStateEnum.ERROR,errorMessage:err.message}))
     );
+    }
   }
   getCustomersByLname(){
-    this.customersData$=this.customerService.getCustomersByLname(this.searchValue)
-    .pipe(
-      map((data)=>({dataState:DataStateEnum.LOADED,data:data})),
-      startWith({dataState:DataStateEnum.LOADING}),
-      catchError(err=>of({dataState:DataStateEnum.ERROR,errorMessage:err.message}))
-    );
+    if(this.searchValue.length>0){
+      this.customersData$=this.customerService.getCustomersByLname(this.searchValue)
+      .pipe(
+        map((data)=>({dataState:DataStateEnum.LOADED,data:data})),
+        startWith({dataState:DataStateEnum.LOADING}),
+        catchError(err=>of({dataState:DataStateEnum.ERROR,errorMessage:err.message}))
+      );
+    }
+
   }
 
   getCustomersByJob(){
-    this.customersData$=this.customerService.getCustomersByJob(this.searchValue)
-    .pipe(
-      map((data)=>({dataState:DataStateEnum.LOADED,data:data})),
-      startWith({dataState:DataStateEnum.LOADING}),
-      catchError(err=>of({dataState:DataStateEnum.ERROR,errorMessage:err.message}))
-    );
-  }
+    if(this.searchValue.length>0){
+      this.customersData$=this.customerService.getCustomersByJob(this.searchValue)
+      .pipe(
+        map((data)=>({dataState:DataStateEnum.LOADED,data:data})),
+        startWith({dataState:DataStateEnum.LOADING}),
+        catchError(err=>of({dataState:DataStateEnum.ERROR,errorMessage:err.message}))
+      );
+      }
+    }
 
 }

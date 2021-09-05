@@ -11,5 +11,5 @@ export interface Customer {
 	jobtitle:String;
 	address:String;
 	subscriptionCode:String;
-	imageUrl:String
+	imageUrl:string
 }

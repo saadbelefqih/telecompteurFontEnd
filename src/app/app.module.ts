@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DetailCustomerComponent } from './components/customer/detail-customer/detail-customer.component';
 import { FormsModule } from '@angular/forms';
 import { NewCustomerComponent } from './components/customer/new-customer/new-customer.component';
+import { EditCustomerComponent } from './components/customer/edit-customer/edit-customer.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NewCustomerComponent } from './components/customer/new-customer/new-cus
     DashboardComponent,
     HelpComponent,
     DetailCustomerComponent,
-    NewCustomerComponent
+    NewCustomerComponent,
+    EditCustomerComponent
   ],
   imports: [
     BrowserModule,

@@ -118,8 +118,11 @@
                           </div>
                           <hr>
                           <div class="row">
-                            <div class="col-sm-12">
-                              <a class="btn btn-info " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+                            <div class="col-sm-12 ">
+                              <div class="float-right">
+                              <a class="btn btn-info mr-1" (click)="onRedirectCustomEdit(customer?.data?.idCustomer)">Editer</a>
+                              <a class="btn btn-danger " (click)="deleteCustomer()" >Supprimer</a>
+                            </div>
                             </div>
                           </div>
                         </div>

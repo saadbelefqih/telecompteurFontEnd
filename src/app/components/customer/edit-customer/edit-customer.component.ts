@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerService } from 'src/app/services/customer.service';
 import { Customer } from 'src/app/shared/model/customer.model';
+import { DataStateEnum } from 'src/app/shared/model/datastate.model';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-new-customer',
-  templateUrl: './new-customer.component.html',
-  styleUrls: ['./new-customer.component.css']
+  selector: 'app-edit-customer',
+  templateUrl: './edit-customer.component.html',
+  styleUrls: ['./edit-customer.component.css']
 })
-export class NewCustomerComponent implements OnInit {
+export class EditCustomerComponent implements OnInit {
+
+  customerId:number=-1;
+  step:number=0;
   customer:Customer={
     idCustomer:-1,
     fname:"",
@@ -26,11 +30,23 @@ export class NewCustomerComponent implements OnInit {
     imageUrl:"https://www.bootdey.com/img/Content/avatar/avatar7.png"
   }
   defaultPhoto:string="";
-  step:number=0;
-  constructor(private router:Router,private customerService:CustomerService) { }
+  readonly DataStateEnum=DataStateEnum;
+  constructor(private router:Router,private activatedRoute:ActivatedRoute,private  customerService:CustomerService) { }
 
   ngOnInit(): void {
-    
+    this.getParamId();
+    this.getLoadCustomer(this.customerId);
+  }
+
+  getParamId(){
+    this.customerId=parseInt(atob(this.activatedRoute.snapshot.params.id));
+  }
+
+  getLoadCustomer(id:number){
+      if(id>0){
+        this.customerService.getOneCustomer(id)
+      .subscribe(c=>{this.customer=c;})
+      }
   }
 
   nexStep(i:number){
@@ -45,12 +61,14 @@ export class NewCustomerComponent implements OnInit {
   }
 
 
+
+
   onSubmit(form:any){
     
-    this.customerService.addCustomer(this.customer).subscribe((rep)=>{
+    this.customerService.updateCustomer(this.customer).subscribe((rep)=>{
       Swal.fire({
         title:'Félicitations!',
-        text:'Opération a bien été effectuée.',
+        text:'opération a bien été effectuée.',
         icon:'success',
         showCloseButton: false,
       }).then(()=>{
