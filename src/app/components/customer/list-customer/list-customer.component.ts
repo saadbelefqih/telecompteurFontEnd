@@ -17,6 +17,7 @@ export class ListCustomerComponent implements OnInit {
   customersData$?:Observable<AppDataState<Customer[]>>;
   isCardForm:boolean=true;
   readonly DataStateEnum=DataStateEnum;
+  searchValue:string="";
   constructor(private customerService:CustomerService,private router:Router) { }
 
   ngOnInit(): void {
@@ -44,7 +45,43 @@ export class ListCustomerComponent implements OnInit {
 
   onRedirectCustomDetails(id:any){
     this.router.navigateByUrl("/customer/details/"+btoa(id));
-  
+  }
+
+  getCustomersByCine(){
+    console.log("saaaad");
+    console.log(this.searchValue);
+    this.customersData$=this.customerService.getCustomersByCine(this.searchValue)
+      .pipe(
+        map((data)=>({dataState:DataStateEnum.LOADED,data:data})),
+        startWith({dataState:DataStateEnum.LOADING}),
+        catchError(err=>of({dataState:DataStateEnum.ERROR,errorMessage:err.message}))
+      );
+  }
+
+  getCustomersByFname(){
+    this.customersData$=this.customerService.getCustomersByFname(this.searchValue)
+    .pipe(
+      map((data)=>({dataState:DataStateEnum.LOADED,data:data})),
+      startWith({dataState:DataStateEnum.LOADING}),
+      catchError(err=>of({dataState:DataStateEnum.ERROR,errorMessage:err.message}))
+    );
+  }
+  getCustomersByLname(){
+    this.customersData$=this.customerService.getCustomersByLname(this.searchValue)
+    .pipe(
+      map((data)=>({dataState:DataStateEnum.LOADED,data:data})),
+      startWith({dataState:DataStateEnum.LOADING}),
+      catchError(err=>of({dataState:DataStateEnum.ERROR,errorMessage:err.message}))
+    );
+  }
+
+  getCustomersByJob(){
+    this.customersData$=this.customerService.getCustomersByJob(this.searchValue)
+    .pipe(
+      map((data)=>({dataState:DataStateEnum.LOADED,data:data})),
+      startWith({dataState:DataStateEnum.LOADING}),
+      catchError(err=>of({dataState:DataStateEnum.ERROR,errorMessage:err.message}))
+    );
   }
 
 }

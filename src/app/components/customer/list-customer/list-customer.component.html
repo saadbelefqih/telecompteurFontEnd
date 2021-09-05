@@ -1,4 +1,25 @@
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
+			          <!-- Breadcrumb -->
+					  <nav aria-label="breadcrumb ml-5" class="main-breadcrumb">
+						<ol class="breadcrumb">
+						  <li class="breadcrumb-item"><a routerLink="/" >Home</a></li>
+						  <li class="breadcrumb-item"><a routerLink="/customer">Clients</a></li>
+						</ol>
+					  </nav>
+					  <!-- /Breadcrumb -->
+					<!-- Serch-->
+					<section class="main ">
+						<div class="search" >
+							<input type="text" placeholder="Chercher ..." name="searchValue" id="searchValue" [(ngModel)]="searchValue"/>
+							<ul class="results" >
+								<li ><a (click)="getCustomersByCine()">Chercher par&nbsp;<b>cine</b></a></li>
+								<li><a (click)="getCustomersByFname()">Chercher par&nbsp;<b>nom</b></a></li>
+								<li><a (click)="getCustomersByLname()">Chercher par&nbsp;<b>Prenom</b></a></li>
+								<li><a (click)="getCustomersByJob()">Chercher par&nbsp;<b>Travail</b></a></li>
+							</ul>
+						</div>
+				   </section>
+				   	<!-- /Serch-->
     <ul class="navbar navbar-nav ml-auto">
 		<li class="nav-item">
             <button class="btn btn-outline-info ml-1" (click)="getCardForm()" ><i class="fa fa-cubes"></i></button>
@@ -6,18 +27,14 @@
         <li class="nav-item">
             <button class="btn btn-outline-info ml-1" (click)="getTableForm()"><i class="fa fa-table" ></i></button>
         </li>
+		<li class="nav-item">
+            <button class="btn btn-outline-success ml-1" routerLink="/customer/new"><i class="fa fa-plus"></i></button>
+        </li>
     </ul>
 </nav>
 
-	<div class="container" >
-		          <!-- Breadcrumb -->
-				  <nav aria-label="breadcrumb" class="main-breadcrumb">
-					<ol class="breadcrumb">
-					  <li class="breadcrumb-item"><a routerLink="/" >Home</a></li>
-					  <li class="breadcrumb-item"><a routerLink="/customer">Clients</a></li>
-					</ol>
-				  </nav>
-				  <!-- /Breadcrumb -->
+	<div class="container mt-3" >
+
 		<ng-container *ngIf="(customersData$ | async) as result" [ngSwitch]="result.dataState">
 			<ng-container *ngSwitchCase="DataStateEnum.LOADING">
 				<div class="text-center">
@@ -44,7 +61,7 @@
 								<div class="p-4 border radius-15">
 									<img src="{{c?.imageUrl}}" width="110" height="110" class="rounded-circle shadow" alt="">
 									<h6 class="mb-0 mt-5">{{c.fname}} {{c.lname}}</h6>
-									<p class="mb-3">{{c.jobTitle}}</p>
+									<p class="mb-3">{{c.jobtitle}}</p>
 									<div class="list-inline contacts-social mt-3 mb-3"> <a href="{{'https://www.facebook.com/'+ c?.account_fb}}" class="list-inline-item bg-facebook text-white border-0"><i class="fa fa-facebook"></i></a>
 										<a href="{{'https://twitter.com/'+ c?.account_twitter}}" class="list-inline-item bg-twitter text-white border-0"><i class="fa fa-twitter"></i></a>
 										<a href="{{'https://www.instagram.com/'+ c?.account_insta}}" class="list-inline-item bg-instagram text-white border-0"><i class="fa fa-instagram"></i></a>
@@ -94,7 +111,7 @@
                                             <div class="event-wrap">
                                                 <h3><a >{{c.fname}} {{c.lname}}</a></h3>
                                                 <ul class="fa-ul">
-													<li><span class="fa-li"><i class="fa fa-usd"></i></span>{{c?.jobTitle}}</li>
+													<li><span class="fa-li"><i class="fa fa-usd"></i></span>{{c?.jobtitle}}</li>
 													<li><span class="fa-li"><i class="fa fa-id-card"></i></span>{{c?.cine}} {{c?.address}}</li>
 													<li><span class="fa-li"><i class="fa fa-phone"></i></span>{{c?.phone}}</li>
 													<li><span class="fa-li"><i class="fa fa-at"></i></span>{{c?.email}}</li>

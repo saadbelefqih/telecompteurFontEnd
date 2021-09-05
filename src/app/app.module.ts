@@ -9,6 +9,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HelpComponent } from './components/help/help.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DetailCustomerComponent } from './components/customer/detail-customer/detail-customer.component';
+import { FormsModule } from '@angular/forms';
+import { NewCustomerComponent } from './components/customer/new-customer/new-customer.component';
 
 @NgModule({
   declarations: [
@@ -17,10 +19,12 @@ import { DetailCustomerComponent } from './components/customer/detail-customer/d
     ListCustomerComponent,
     DashboardComponent,
     HelpComponent,
-    DetailCustomerComponent
+    DetailCustomerComponent,
+    NewCustomerComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule
   ],

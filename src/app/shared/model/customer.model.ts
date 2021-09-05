@@ -1,5 +1,5 @@
 export interface Customer {
-	idCustomer:Number;
+	idCustomer:number;
     fname:String;
 	lname:String;
     cine:String;
@@ -8,7 +8,7 @@ export interface Customer {
 	account_insta:String;
 	account_twitter:String;
 	phone:String;
-	jobTitle:String;
+	jobtitle:String;
 	address:String;
 	subscriptionCode:String;
 	imageUrl:String

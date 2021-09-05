@@ -15,7 +15,19 @@ export class CustomerService {
 	return this.http.get<Customer[]>(this.url+"/all");}
 
   public getOneCustomer(id:Number):Observable<Customer>{
-    return this.http.get<Customer>(this.url+"/find/"+id);}
+    return this.http.get<Customer>(this.url+"/find/id/"+id);}
+
+  public getCustomersByCine(p:string):Observable<Customer[]>{
+    return this.http.get<Customer[]>(this.url+"/find/cine/"+p);}
+
+  public getCustomersByFname(p:string):Observable<Customer[]>{
+    return this.http.get<Customer[]>(this.url+"/find/fname/"+p);}
+
+  public getCustomersByLname(p:string):Observable<Customer[]>{
+    return this.http.get<Customer[]>(this.url+"/find/lname/"+p);}
+
+  public getCustomersByJob(p:string):Observable<Customer[]>{
+    return this.http.get<Customer[]>(this.url+"/find/job/"+p);}
 	
   public addCustomer(customer:Customer):Observable<Customer>{
 	return this.http.post<Customer>(this.url+"/add",customer);}
